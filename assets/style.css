@@ -2,7 +2,12 @@
     font-family: 'workbench';
     src: url('../assets/font.woff2') format('woff2');
   }
-
+  body {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+ }
   body, html {
     margin: 0;
     padding: 0;
@@ -11,7 +16,6 @@
     font-family: 'workbench', sans-serif;
     overflow: hidden;
   }
-
   #background-video {
     position: fixed;
     top: 50%;
@@ -25,7 +29,6 @@
     object-fit: cover;
     object-position: center;
   }
-
   .navbar {
     background: none;
     padding: 1rem;
@@ -34,13 +37,11 @@
     align-items: center;
     pointer-events: none;
   }
-
   .logo {
     font-size: 1.5rem;
     color: #D68FD6;
     text-shadow: 0 0 10px #D68FD6;
   }
-
   .nav-links {
     list-style: none;
     margin: 0;
@@ -48,11 +49,9 @@
     display: flex;
     align-items: center;
   }
-
   .nav-links li {
     margin-right: 20px;
   }
-
   .nav-links a {
     font-size: 1.2rem;
     color: #D68FD6;
@@ -78,13 +77,13 @@
     pointer-events: none;
   }
   .response b {
-    text-shadow: 1 1 30px #783F8E;
-    color: #7e4a92;
+    text-shadow: 1 1 35px #783F8E;
+    color: #7f5191;
   }
   .stats {
     bottom: 0.5%;
     font-size: 0.8rem;
-    color: rgba(128, 128, 128, 0.404);
+    color: rgba(128, 128, 128, 0.534);
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -112,7 +111,6 @@
       margin: 0 10px;
       text-align: center;
     }
-
     .response {
       font-size: 1.5rem !important;
     }

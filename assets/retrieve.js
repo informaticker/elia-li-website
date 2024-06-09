@@ -14,8 +14,10 @@ async function fetchAndDisplay() {
     let charCount = 0;
     let startTime = performance.now();
     let initialText = responseDiv.textContent;
-    const delay = 70;
-    const statsDelay = 40;
+    const eraseDelay = 100;
+    const printDelay = 50;
+    const statsEraseDelay = 20;
+    const statsPrintDelay = 40;
     let lastTemperature = "...";
     let lastTemperatureUpdateTime = 0;
 
@@ -28,7 +30,7 @@ async function fetchAndDisplay() {
     while (initialText.length > 0) {
         initialText = initialText.slice(0, -1);
         responseDiv.textContent = initialText;
-        await new Promise(resolve => setTimeout(resolve, delay));
+        await new Promise(resolve => setTimeout(resolve, eraseDelay));
     }
 
     async function updateStatsAndTemperature() {
@@ -36,7 +38,7 @@ async function fetchAndDisplay() {
         let charsPerSecond = charCount / currentTime;
         
 
-        if (currentTime - lastTemperatureUpdateTime >= 1) {
+        if (currentTime - lastTemperatureUpdateTime >= 3) {
             try {
                 lastTemperature = await fetchTemperature();
                 lastTemperatureUpdateTime = currentTime;
@@ -67,15 +69,14 @@ async function fetchAndDisplay() {
                 let nextPos = pos !== -1 ? pos : buffer.length;
                 for (let i = 0; i < nextPos; i++) {
                     responseDiv.innerHTML += buffer[i];
-                    await new Promise(resolve => setTimeout(resolve, delay));
+                    await new Promise(resolve => setTimeout(resolve, printDelay));
                     charCount++;
-                    updateStatsAndTemperature();
+                    await updateStatsAndTemperature();
                 }
                 buffer = buffer.slice(nextPos);
             }
         }
     }
-
     while (true) {
         const { value, done } = await reader.read();
         if (done) {
@@ -93,17 +94,17 @@ async function fetchAndDisplay() {
     while (statsText.length > 0) {
         statsText = statsText.slice(0, -1);
         statsDiv.textContent = statsText;
-        await new Promise(resolve => setTimeout(resolve, statsDelay));
+        await new Promise(resolve => setTimeout(resolve, statsEraseDelay));
     }
 
 
     await new Promise(resolve => setTimeout(resolve, 200));
-    const message = '// bg video from hartnett media \\\\';
+    const message = '// video from hartnett media \\\\';
     let messageIndex = 0;
     while (messageIndex < message.length) {
         statsDiv.textContent += message[messageIndex];
         messageIndex++;
-        await new Promise(resolve => setTimeout(resolve, statsDelay));
+        await new Promise(resolve => setTimeout(resolve, statsPrintDelay));
     }
 }
 
