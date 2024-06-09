@@ -1,0 +1,119 @@
+  @font-face {
+    font-family: 'workbench';
+    src: url('../assets/font.woff2') format('woff2');
+  }
+
+  body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'workbench', sans-serif;
+    overflow: hidden;
+  }
+
+  #background-video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    height: auto;
+    min-width: 100%;
+    min-height: 101%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .navbar {
+    background: none;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+    color: #D68FD6;
+    text-shadow: 0 0 10px #D68FD6;
+  }
+
+  .nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-links li {
+    margin-right: 20px;
+  }
+
+  .nav-links a {
+    font-size: 1.2rem;
+    color: #D68FD6;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    text-shadow: 0 0 3px #D68FD6;
+    pointer-events: initial;
+    letter-spacing: 1px;
+  }
+  .nav-links a:hover {
+    color: #d6afd6;
+  }
+  .response {
+    text-align: center;
+    font-size: 2.0rem;
+    color: #783F8E;
+    text-shadow: 0 0 10px #783F8E;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    pointer-events: none;
+  }
+  .response b {
+    text-shadow: 1 1 30px #783F8E;
+    color: #7e4a92;
+  }
+  .stats {
+    bottom: 0.5%;
+    font-size: 0.8rem;
+    color: rgba(128, 128, 128, 0.404);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    white-space: nowrap;
+    display: block;
+  }
+  @media (max-width: 600px) {
+    .navbar {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .nav-links {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      padding: 0;
+      width: 100%;
+    }
+    .logo {
+      display: none;
+    }
+    .nav-links li {
+      margin: 0 10px;
+      text-align: center;
+    }
+
+    .response {
+      font-size: 1.5rem !important;
+    }
+  }
