@@ -1,12 +1,10 @@
 document.addEventListener('contextmenu', function(event) {
     event.preventDefault();
 });
-
 async function fetchTemperature() {
-    const response = await fetch('https://language.apis.zhr1.infra.elia.network/v1/thoughts/temperature');
+    const response = await fetch('https://language.apis.zhr1.infra.elia.network/v2/infra/temperature');
     return response.text();
 }
-
 async function fetchAndDisplay() {
     const responseDiv = document.querySelector('.response');
     const statsDiv = document.querySelector('.stats');
@@ -16,45 +14,34 @@ async function fetchAndDisplay() {
     let initialText = responseDiv.textContent;
     const eraseDelay = 100;
     const printDelay = 50;
-    const statsEraseDelay = 20;
-    const statsPrintDelay = 40;
+    const statsEraseDelay = 15;
+    const statsPrintDelay = 30;
     let lastTemperature = "...";
     let lastTemperatureUpdateTime = 0;
-
-
-    const response = await fetch('https://language.apis.zhr1.infra.elia.network/v1/thoughts/retrieve');
+    const response = await fetch('https://language.apis.zhr1.infra.elia.network/v2/text/generate');
     const reader = response.body.getReader();
     const decoder = new TextDecoder('utf-8');
-
-
     while (initialText.length > 0) {
         initialText = initialText.slice(0, -1);
         responseDiv.textContent = initialText;
         await new Promise(resolve => setTimeout(resolve, eraseDelay));
     }
-
     async function updateStatsAndTemperature() {
+        statsDiv.style.display = 'block';
         let currentTime = (performance.now() - startTime) / 1000;
         let charsPerSecond = charCount / currentTime;
-        
-
         if (currentTime - lastTemperatureUpdateTime >= 3) {
             try {
                 lastTemperature = await fetchTemperature();
                 lastTemperatureUpdateTime = currentTime;
             } catch (error) {
-                lastTemperature = "None";
+                lastTemperature = "...";
             }
         }
-        
-
         statsDiv.textContent = `${charsPerSecond.toFixed(1)} chars/s, ${charCount} chars, ${currentTime.toFixed(1)}s, Temp: ${lastTemperature}°C`;
     }
-
-
     async function appendTextSmoothly(textPart) {
         buffer += textPart;
-
         while (buffer.length > 0) {
             let pos = buffer.indexOf('**');
             if (pos === 0) {
@@ -88,18 +75,14 @@ async function fetchAndDisplay() {
         const text = decoder.decode(value, { stream: true });
         await appendTextSmoothly(text);
     }
-
-
     let statsText = statsDiv.textContent;
     while (statsText.length > 0) {
         statsText = statsText.slice(0, -1);
         statsDiv.textContent = statsText;
         await new Promise(resolve => setTimeout(resolve, statsEraseDelay));
     }
-
-
     await new Promise(resolve => setTimeout(resolve, 200));
-    const message = '// video from hartnett media \\\\';
+    const message = '// credit to hartnett media \\\\';
     let messageIndex = 0;
     while (messageIndex < message.length) {
         statsDiv.textContent += message[messageIndex];
@@ -107,9 +90,7 @@ async function fetchAndDisplay() {
         await new Promise(resolve => setTimeout(resolve, statsPrintDelay));
     }
 }
-
 document.addEventListener('DOMContentLoaded', fetchAndDisplay);
-
 console.log(`　　　　　  ___
 　　　　 ／イ   フ
 　　　　|  _  _|  
@@ -120,4 +101,4 @@ console.log(`　　　　　  ___
 ／￣|　　| | |　　 
 | (￣ヽ_ヽ_)_)　
 ＼二つ`);
-console.log("hello");   
+console.log("hello");
