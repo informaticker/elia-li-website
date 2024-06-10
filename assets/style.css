@@ -84,15 +84,15 @@
   }
   .stats {
     bottom: 0.5%;
-    font-size: 0.8rem;
-    color: rgba(128, 128, 128, 0.534);
+    font-size: 1rem;
+    color: rgba(128, 128, 128, 0.6);
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     pointer-events: none;
     white-space: nowrap;
     display: none; 
-    animation: fadeIn 1s;
+    animation: fadeIn 1.5s;
   }
   @keyframes fadeIn {
     from { opacity: 0; }
